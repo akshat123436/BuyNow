@@ -1,6 +1,7 @@
 // const { findByIdAndUpdate } = require("../models/product");
 const app = require("../app");
 const Product = require("../models/product");
+const ErrorHandler = require("../utils/errorHandler");
 
 exports.createProduct = async (req, res, next) => {
   //   console.log(req.body);
@@ -51,10 +52,7 @@ exports.productDetail = async (req, res, next) => {
   const product = await Product.findById(productId);
 
   if (!product) {
-    res.status(500).json({
-      success: false,
-      message: "could not find the product",
-    });
+    return next(new ErrorHandler("could not find the product", 404));
   } else {
     res.status(200).json({ success: true, product });
   }
