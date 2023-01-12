@@ -1,24 +1,25 @@
 // const { findByIdAndUpdate } = require("../models/product");
 const app = require("../app");
+const catchAsyncFunction = require("../middlewares/catchAsyncFunction");
 const Product = require("../models/product");
 const ErrorHandler = require("../utils/errorHandler");
 
-exports.createProduct = async (req, res, next) => {
+exports.createProduct = catchAsyncFunction(async (req, res, next) => {
   //   console.log(req.body);
   const newProduct = await Product.create(req.body);
   res.status(200).json({ success: true, newProduct });
-};
+});
 
-exports.showProducts = async (req, res) => {
+exports.showProducts = catchAsyncFunction(async (req, res) => {
   const products = await Product.find({});
   res.status(200).json({ success: true, products });
-};
+});
 
-exports.updateProduct = async (req, res, next) => {
+exports.updateProduct = catchAsyncFunction(async (req, res, next) => {
   const productId = req.params.id;
   const product = await Product.findById(productId);
   if (!product) {
-    res.status(500).json({ success: false, message: "Could not find product" });
+    return next(new ErrorHandler("could not find the product", 404));
   } else {
     const updatedProduct = await Product.findByIdAndUpdate(
       productId,
@@ -27,17 +28,14 @@ exports.updateProduct = async (req, res, next) => {
     );
     res.status(200).json({ success: true, updatedProduct });
   }
-};
+});
 
-exports.deleteProduct = async (req, res, next) => {
+exports.deleteProduct = catchAsyncFunction(async (req, res, next) => {
   const productId = req.params.id;
   const product = Product.findById(productId);
 
   if (!product) {
-    res.status(500).json({
-      success: false,
-      message: "could not find the product to delete",
-    });
+    return next(new ErrorHandler("could not find the product", 404));
   } else {
     await product.remove();
 
@@ -45,9 +43,9 @@ exports.deleteProduct = async (req, res, next) => {
       .status(200)
       .json({ success: true, message: "product was deleted successfully" });
   }
-};
+});
 
-exports.productDetail = async (req, res, next) => {
+exports.productDetail = catchAsyncFunction(async (req, res, next) => {
   const productId = req.params.id;
   const product = await Product.findById(productId);
 
@@ -56,4 +54,4 @@ exports.productDetail = async (req, res, next) => {
   } else {
     res.status(200).json({ success: true, product });
   }
-};
+});
