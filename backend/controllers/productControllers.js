@@ -3,7 +3,7 @@ const app = require("../app");
 const catchAsyncFunction = require("../middlewares/catchAsyncFunction");
 const Product = require("../models/product");
 const ErrorHandler = require("../utils/errorHandler");
-
+const ApiFeatures = require("../utils/apiFeatures");
 exports.createProduct = catchAsyncFunction(async (req, res, next) => {
   //   console.log(req.body);
   const newProduct = await Product.create(req.body);
@@ -11,8 +11,16 @@ exports.createProduct = catchAsyncFunction(async (req, res, next) => {
 });
 
 exports.showProducts = catchAsyncFunction(async (req, res) => {
-  const products = await Product.find({});
-  res.status(200).json({ success: true, products });
+  const resultPerPage = 5;
+  const productsCount = await Product.countDocuments();
+
+  const apiFeature = new ApiFeatures(Product.find(), req.query)
+    .search()
+    .filter()
+    .pagination(resultPerPage);
+
+  let products = await apiFeature.query;
+  res.status(200).json({ success: true, products, productsCount });
 });
 
 exports.updateProduct = catchAsyncFunction(async (req, res, next) => {
