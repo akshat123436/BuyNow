@@ -2,8 +2,11 @@ const express = require("express");
 const errorMiddleware = require("./middlewares/error");
 const app = express();
 const product = require("./routes/productRoutes");
+const user = require("./routes/userRoute");
+const cookieParser = require("cookie-parser");
 app.use(express.json());
+app.use(cookieParser());
 app.use("/api/v1", product);
-
+app.use("/api/v1", user);
 app.use(errorMiddleware);
 module.exports = app;
