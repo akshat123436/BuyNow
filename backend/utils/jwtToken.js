@@ -10,7 +10,7 @@ const sendToken = (user, statusCode, res) => {
     ),
     httpOnly: true,
   };
-  // console.log(process.env.COOKIE_EXPIRE);
+
   res.status(statusCode).cookie("token", token, options).json({
     success: true,
     user,

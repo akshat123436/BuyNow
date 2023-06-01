@@ -9,8 +9,8 @@ const {
   getProductReviews,
   deleteReview,
   getAdminProducts,
-} = require("../controllers/productControllers");
-const { isAuthenticatedUser, authorizeRoles } = require("../middlewares/auth");
+} = require("../controllers/productController");
+const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
 const router = express.Router();
 

@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 
-async function connectDatabase() {
-  const DBURL = process.env.DB_URI || "mongodb://localhost:27017/ecommerce";
-  await mongoose.connect(DBURL);
-}
-const db = mongoose.connection;
-
-db.on("error", console.error.bind(console, "connection error"));
-db.once("open", () => {
-  console.log("connection open");
-});
+const connectDatabase = () => {
+  mongoose
+    .connect(process.env.DB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    })
+    .then((data) => {
+      console.log(`Mongodb connected with server: ${data.connection.host}`);
+    });
+};
 
 module.exports = connectDatabase;

@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 
-const Schema = mongoose.Schema;
-
-const productSchema = new Schema({
+const productSchema = mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please Enter product Name"],
@@ -69,6 +67,11 @@ const productSchema = new Schema({
     },
   ],
 
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
