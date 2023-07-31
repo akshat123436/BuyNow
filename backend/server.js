@@ -26,12 +26,13 @@ cloudinary.config({
 });
 
 const server = app.listen(process.env.PORT, () => {
-  console.log(`Server is working on http://localhost:${process.env.PORT}`);
+  console.log(`Server is working on http://127.0.0.1:${process.env.PORT}`);
 });
 
 // Unhandled Promise Rejection
 process.on("unhandledRejection", (err) => {
   console.log(`Error: ${err.message}`);
+  console.log(err.stack);
   console.log(`Shutting down the server due to Unhandled Promise Rejection`);
 
   server.close(() => {
