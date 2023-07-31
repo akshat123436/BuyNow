@@ -5,6 +5,8 @@ import MetaData from "../layout/MetaData";
 import "./ConfirmOrder.css";
 import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
+import { WiDirectionLeft } from "react-icons/wi";
+import { FaWindowRestore } from "react-icons/fa";
 
 const ConfirmOrder = ({ history }) => {
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
@@ -33,6 +35,7 @@ const ConfirmOrder = ({ history }) => {
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
 
     history.push("/process/payment");
+    window.location.reload(false);
     console.log(window.location.pathname);
   };
 
