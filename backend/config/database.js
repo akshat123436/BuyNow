@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const url = process.env.DB_URI || "mongodb://localhost:27017/ecommerce";
-const connectDatabase = () => {
+const connectDatabase = async () => {
   console.log(url);
-  mongoose
+  await mongoose
     .connect(url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
