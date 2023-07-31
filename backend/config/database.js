@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const url = process.env.DB_URI || "mongodb://localhost:27017/ecommerce";
 const connectDatabase = () => {
+  console.log(url);
   mongoose
     .connect(url, {
       useNewUrlParser: true,
