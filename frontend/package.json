@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  "proxy": "http://192.168.158.114:4000/",
+  "proxy": "https://buynow-backend.cyclic.cloud/",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.3",
@@ -37,8 +37,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "dev": "cross-env DISABLE_ESLINT_PLUGIN=true refine start",
-    "build": "cross-env DISABLE_ESLINT_PLUGIN=true refine build",
+    "dev": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
